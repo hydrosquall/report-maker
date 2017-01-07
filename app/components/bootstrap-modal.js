@@ -1,9 +1,13 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
+  compX: undefined,
+  compY: undefined,
+  components: Ember.A([{label: 'Bar Chart', value: 'bar-chart'}]),
   didRender: function () {
-    Ember.Logger.info('didRender');
     if (this.get('showModal')) {
+      this.set('compX', this.get('componentX'));
+      this.set('compY', this.get('componentY'));
       Ember.$('#myModal').modal('show');
     } else {
       Ember.$('#myModal').modal('hide');
@@ -12,13 +16,13 @@ export default Ember.Component.extend({
 
   actions: {
     cancel () {
-      Ember.Logger.info('Cancel has been used');
       this.get('onRemove')();
     },
 
     save () {
-      Ember.Logger.info('Save has been used');
-      this.get('onRemove')();
+      let selectValue = Ember.$('#graph-select')[0].value;
+      let saveObj = {graph: selectValue, x: this.get('compX'), y: this.get('compY')};
+      this.get('onSave')(saveObj);
     }
   }
 });

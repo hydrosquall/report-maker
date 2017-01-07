@@ -6,12 +6,29 @@
         <h4 class="modal-title">Modal Header</h4>
       </div>
       <div class="modal-body">
-        <p>Some text in the modal.</p>
+          <div class="form-group">
+              <label for="graph-select"> Select Graph </label>
+              <select class="form-control" id="graph-select">
+                  {{#each components as |opt|}}
+                      <option value={{opt.value}}>{{opt.label}}</option>
+                  {{else}}
+                      <option>No Graphs Available</option>
+                  {{/each}}
+              </select>
+          </div>
+          <div class="form-group">
+              <label for="x-pos">X:</label>
+              {{input type="text" class="form-control" id="x-pos" value=compX}}
+          </div>
+          <div class="form-group">
+              <label for="x-pos">X:</label>
+              {{input type="text" class="form-control" id="y-pos" value=compY}}
+          </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal" {{action "cancel"}}>Close</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal" {{action "save"}}>Save</button>
       </div>
     </div>
-
   </div>
 </div>

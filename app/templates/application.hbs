@@ -6,6 +6,14 @@
             componentY=offsetY
             showModal=showModal
             onRemove=(action "removeModal")
+            onSave=(action "createGraph")
         }}
     {{/if}}
+    {{#each components as |c|}}
+        {{c.graph}}
+        {{component c.graph
+            args=c
+            noClick=(action 'noClick')
+        }}
+    {{/each}}
 </div>

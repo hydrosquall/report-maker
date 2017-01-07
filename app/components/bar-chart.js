@@ -1,23 +1,25 @@
 // app/components/bar-chart.js
+/* global d3 */
 
 import Ember from 'ember';
 
 export default Ember.Component.extend({
   defaultMargin: {top: 20, right: 20, bottom: 30, left: 40},
-  defaultHeight: 500,
-  defaultWidth: 960,
-  /*
+  defaultHeight: 125,
+  defaultWidth: 240,
+
   didRender () {
-    let margin = this.get('margin') || this.defaultMargin;
-    let chartModel = this.get('model') || Ember.A;
+    let args = this.get('args');
+    let margin = args.margins || this.defaultMargin;
+    let chartModel = args.model || Ember.A([]);
     this.drawChart(
       margin,
-      this.factorWidth(this.get('width') || this.defaultWidth, margin),
-      this.factorHeight(this.get('height') || this.defaultHeight, margin),
+      this.factorWidth(args.width || this.defaultWidth, margin),
+      this.factorHeight(args.height || this.defaultHeight, margin),
       chartModel
     );
   },
-  */
+
   drawChart (m, w, h, cm) {
     this._super(...arguments);
     let margin = arguments[0];
@@ -37,6 +39,7 @@ export default Ember.Component.extend({
     let svg = d3.select('.bar-chart').append('svg')
       .attr('width', width + margin.right + margin.left)
       .attr('height', height + margin.top + margin.bottom)
+      .on('contextmenu', () => { this.stopRightClick(); })
       .append('g')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
@@ -49,7 +52,7 @@ export default Ember.Component.extend({
       .attr('class', 'bar')
       .attr('x', d => { return x(d.name); })
       .attr('width', x.bandwidth())
-      .attr('y', d => { return  y(d.sales); })
+      .attr('y', d => { return y(d.sales); })
       .attr('height', d => { return height - y(d.sales); });
 
     svg.append('g')
@@ -60,11 +63,16 @@ export default Ember.Component.extend({
       .call(d3.axisLeft(y));
   },
 
-  factorHeight(h, m) {
+  factorHeight (h, m) {
     return h - m.top - m.bottom;
   },
 
   factorWidth (w, m) {
     return w - m.left - m.right;
+  },
+
+  stopRightClick () {
+    this.get('noClick')();
+    Ember.Logger.info('Right click stopped');
   }
 });
