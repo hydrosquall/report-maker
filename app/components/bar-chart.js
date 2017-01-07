@@ -30,8 +30,9 @@ export default Ember.Component.extend({
     let height = h;
     let chartModel = cm;
     let xy = pos;
+    let chartClass = '.' + this.get('barChartClass');
 
-    d3.select('.' + this.get('barChartClass')).innerHTML = undefined;
+    d3.select(chartClass).innerHTML = undefined;
 
     let x = d3.scaleBand()
       .range([0, width])
@@ -40,7 +41,8 @@ export default Ember.Component.extend({
     let y = d3.scaleLinear()
       .range([height, 0]);
 
-    let svg = d3.select('.' + this.get('barChartClass')).append('svg')
+    let svg = d3.select(chartClass).append('svg')
+      .attr('id', 'draggable-graph')
       .attr('width', width + margin.right + margin.left)
       .attr('height', height + margin.top + margin.bottom)
       .on('contextmenu', () => { this.stopRightClick(); })
@@ -66,8 +68,14 @@ export default Ember.Component.extend({
     svg.append('g')
       .call(d3.axisLeft(y));
 
-    Ember.Logger.info(xy);
-    Ember.$('.' + this.get('barChartClass')).css({top: xy[1], left: xy[0], position: 'absolute'});
+    Ember.$(chartClass).css({top: xy[1], left: xy[0], position: 'absolute'});
+
+    Ember.$(chartClass).draggable({
+      stop: function (event, ui) {
+        let os = ui.offset;
+        Ember.$(chartClass).css({top: os.top, left: os.left, position: 'absolute'});
+      }
+    });
   },
 
   factorHeight (h, m) {
