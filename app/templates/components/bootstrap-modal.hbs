@@ -18,11 +18,13 @@
           </div>
           <div class="form-group">
               <label for="x-pos">X:</label>
-              {{input type="text" class="form-control" id="x-pos" value=compX}}
-          </div>
-          <div class="form-group">
-              <label for="x-pos">X:</label>
-              {{input type="text" class="form-control" id="y-pos" value=compY}}
+              <input class="form-control" id="x-pos" value={{compX}}>
+              <label for="x-pos">Y:</label>
+              <input class="form-control" id="y-pos" value={{compY}}>
+              <label for="graph-width">Width:</label>
+              <input class="form-control" id="graph-width" value={{width}}>
+              <label for="graph-height">Height:</label>
+              <input class="form-control" id="graph-height" value={{height}}>
           </div>
       </div>
       <div class="modal-footer">

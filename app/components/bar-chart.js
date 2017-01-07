@@ -7,8 +7,10 @@ export default Ember.Component.extend({
   defaultMargin: {top: 20, right: 20, bottom: 30, left: 40},
   defaultHeight: 125,
   defaultWidth: 240,
+  barChartClass: 'bar-chart',
 
   didRender () {
+    this.set('barChartClass', 'bar-chart-' + this.get('index'));
     let args = this.get('args');
     let margin = args.margins || this.defaultMargin;
     let chartModel = args.model || Ember.A([]);
@@ -23,13 +25,13 @@ export default Ember.Component.extend({
 
   drawChart (m, w, h, cm, pos) {
     this._super(...arguments);
-    let margin = arguments[0];
-    let width = arguments[1];
-    let height = arguments[2];
-    let chartModel = arguments[3];
-    let xy = arguments[4];
+    let margin = m;
+    let width = w;
+    let height = h;
+    let chartModel = cm;
+    let xy = pos;
 
-    d3.select('.bar-chart').innerHTML = undefined;
+    d3.select('.' + this.get('barChartClass')).innerHTML = undefined;
 
     let x = d3.scaleBand()
       .range([0, width])
@@ -38,11 +40,9 @@ export default Ember.Component.extend({
     let y = d3.scaleLinear()
       .range([height, 0]);
 
-    let svg = d3.select('.bar-chart').append('svg')
+    let svg = d3.select('.' + this.get('barChartClass')).append('svg')
       .attr('width', width + margin.right + margin.left)
       .attr('height', height + margin.top + margin.bottom)
-      .attr('x', 100)
-      .attr('y', 100)
       .on('contextmenu', () => { this.stopRightClick(); })
       .append('g')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
@@ -67,7 +67,7 @@ export default Ember.Component.extend({
       .call(d3.axisLeft(y));
 
     Ember.Logger.info(xy);
-    Ember.$('.bar-chart').css({top: xy[1], left: xy[0], position: 'absolute'});
+    Ember.$('.' + this.get('barChartClass')).css({top: xy[1], left: xy[0], position: 'absolute'});
   },
 
   factorHeight (h, m) {

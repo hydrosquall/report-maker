@@ -1,5 +1,4 @@
 <div class="application-div" oncontextmenu="return false" onmouseup={{action "menuModal"}}>
-    {{!-- {{bar-chart model=model}} --}}
     {{#if showModal}}
         {{bootstrap-modal
             componentX=offsetX
@@ -9,9 +8,9 @@
             onSave=(action "createGraph")
         }}
     {{/if}}
-    {{#each components as |c|}}
-        {{c.graph}}
+    {{#each components as |c index|}}
         {{component c.graph
+            index=index
             args=c
             noClick=(action 'noClick')
         }}
