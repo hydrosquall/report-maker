@@ -16,16 +16,18 @@ export default Ember.Component.extend({
       margin,
       this.factorWidth(args.width || this.defaultWidth, margin),
       this.factorHeight(args.height || this.defaultHeight, margin),
-      chartModel
+      chartModel,
+      Ember.A([args.x, args.y])
     );
   },
 
-  drawChart (m, w, h, cm) {
+  drawChart (m, w, h, cm, pos) {
     this._super(...arguments);
     let margin = arguments[0];
     let width = arguments[1];
     let height = arguments[2];
     let chartModel = arguments[3];
+    let xy = arguments[4];
 
     d3.select('.bar-chart').innerHTML = undefined;
 
@@ -39,6 +41,8 @@ export default Ember.Component.extend({
     let svg = d3.select('.bar-chart').append('svg')
       .attr('width', width + margin.right + margin.left)
       .attr('height', height + margin.top + margin.bottom)
+      .attr('x', 100)
+      .attr('y', 100)
       .on('contextmenu', () => { this.stopRightClick(); })
       .append('g')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
@@ -61,6 +65,9 @@ export default Ember.Component.extend({
 
     svg.append('g')
       .call(d3.axisLeft(y));
+
+    Ember.Logger.info(xy);
+    Ember.$('.bar-chart').css({top: xy[1], left: xy[0], position: 'absolute'});
   },
 
   factorHeight (h, m) {
