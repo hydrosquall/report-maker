@@ -1,3 +1,6 @@
+@import "_bootstrap.scss";
+@import "_bootstrap-theme.scss";
+
 body > .ember-view {
     display: flex;
     min-height: 100vh;

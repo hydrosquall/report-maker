@@ -1,3 +1,11 @@
 <div class="application-div" oncontextmenu="return false" onmouseup={{action "menuModal"}}>
     {{!-- {{bar-chart model=model}} --}}
+    {{#if showModal}}
+        {{bootstrap-modal
+            componentX=offsetX
+            componentY=offsetY
+            showModal=showModal
+            onRemove=(action "removeModal")
+        }}
+    {{/if}}
 </div>
