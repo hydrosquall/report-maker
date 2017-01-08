@@ -7,7 +7,8 @@ export default Ember.Component.extend({
   defaultMargin: {top: 20, right: 20, bottom: 30, left: 40},
   defaultHeight: 125,
   defaultWidth: 240,
-  barChartClass: 'bar-chart',
+  barChartClass: undefined,
+  barColor: 'red',
 
   didRender () {
     let args = this.get('args');
@@ -78,6 +79,20 @@ export default Ember.Component.extend({
       },
       snap: true,
       grid: [5, 5]
+    });
+
+    const _this = this;
+    Ember.$(chartClass).resizable({
+      resize: function (event, ui) {
+        Ember.$('#' + _this.get('barChartClass')).remove();
+        _this.drawChart(
+          m,
+          ui.size.width - m.left - m.right,
+          ui.size.height - m.top - m.bottom,
+          chartModel,
+          Ember.A([ui.position.left, ui.position.top])
+        );
+      }
     });
   },
 

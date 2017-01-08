@@ -10,6 +10,9 @@ module.exports = function (defaults) {
   app.import('bower_components/jquery-ui/jquery-ui.js');
   app.import('bower_components/d3/d3.js');
   app.import('bower_components/bootstrap/dist/js/bootstrap.js');
+  app.import('bower_components/ace-builds/src/ace.js');
+
+  app.import('bower_components/jquery-ui/themes/smoothness/jquery-ui.css');
   // Use `app.import` to add additional libraries to the generated
   // output files.
   //
