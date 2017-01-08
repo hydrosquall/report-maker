@@ -75,7 +75,9 @@ export default Ember.Component.extend({
       stop: function (event, ui) {
         let os = ui.offset;
         Ember.$(chartClass).css({top: os.top, left: os.left, position: 'absolute'});
-      }
+      },
+      snap: true,
+      grid: [5, 5]
     });
   },
 
