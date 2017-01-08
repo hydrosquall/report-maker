@@ -1,7 +1,14 @@
-# d3-components
+# Report Maker
 
-This README outlines the details of collaborating on this Ember application.
-A short introduction of this app could easily go here.
+A simple web app for assembling reports.
+
+## Usage
+
+Right Click on screen and then set your variables in the modal. Once you hit save, the component will be drawn on the screen.
+
+All components can be dragged into position and resized from the bottom right corner.
+
+Right Click on the component to edit it.
 
 ## Prerequisites
 
