@@ -1,18 +1,17 @@
 <div class="application-div" oncontextmenu="return false" onmouseup={{action "menuModal"}}>
     {{#if showModal}}
         {{bootstrap-modal
-            componentX=offsetX
-            componentY=offsetY
+            modalParams=modalParams
             showModal=showModal
             onRemove=(action "removeModal")
             onSave=(action "createGraph")
+            onDelete=(action "deleteGraph")
         }}
     {{/if}}
-    {{#each components as |c index|}}
+    {{#each components as |c|}}
         {{component c.graph
-            index=index
             args=c
-            noClick=(action 'noClick')
+            graphRightClicked=(action 'menuModal')
         }}
     {{/each}}
 </div>

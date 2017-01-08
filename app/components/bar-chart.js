@@ -10,8 +10,8 @@ export default Ember.Component.extend({
   barChartClass: 'bar-chart',
 
   didRender () {
-    this.set('barChartClass', 'bar-chart-' + this.get('index'));
     let args = this.get('args');
+    this.set('barChartClass', args.name);
     let margin = args.margins || this.defaultMargin;
     let chartModel = args.model || Ember.A([]);
     this.drawChart(
@@ -42,10 +42,11 @@ export default Ember.Component.extend({
       .range([height, 0]);
 
     let svg = d3.select(chartClass).append('svg')
-      .attr('id', 'draggable-graph')
+      .attr('id', this.get('barChartClass'))
+      .attr('class', 'bar-graph')
       .attr('width', width + margin.right + margin.left)
       .attr('height', height + margin.top + margin.bottom)
-      .on('contextmenu', () => { this.stopRightClick(); })
+      .on('contextmenu', () => { this.rightClick(d3.event); })
       .append('g')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
@@ -86,8 +87,7 @@ export default Ember.Component.extend({
     return w - m.left - m.right;
   },
 
-  stopRightClick () {
-    this.get('noClick')();
-    Ember.Logger.info('Right click stopped');
+  rightClick (evt) {
+    this.get('graphRightClicked')(evt, {type: 'edit', name: this.get('barChartClass')});
   }
 });

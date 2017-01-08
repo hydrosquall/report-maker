@@ -1,23 +1,41 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-  compX: undefined,
-  compY: undefined,
   width: 280,
   height: 125,
+  headerTitle: undefined,
+  showCreate: false,
+  showEdit: false,
+  px: undefined,
+  py: undefined,
   components: Ember.A([{label: 'Bar Chart', value: 'bar-chart'}]),
   didRender: function () {
     if (this.get('showModal')) {
-      this.set('compX', this.get('componentX'));
-      this.set('compY', this.get('componentY'));
+      let params = this.get('modalParams');
+      if (params.type === 'create') {
+        this.set('px', params.x);
+        this.set('py', params.y);
+        this.set('showCreate', true);
+      } else {
+        this.set('showEdit', true);
+      }
+      this.set('headerTitle', params.name ? 'Edit Graph: ' + params.name : 'Create Graph');
       Ember.$('#myModal').modal('show');
     } else {
       Ember.$('#myModal').modal('hide');
     }
   },
 
+  resetShows (showOptions) {
+    let _this = this;
+    showOptions.map((option) => {
+      _this.set(option, !this.get(option) || false);
+    });
+  },
+
   actions: {
     cancel () {
+      this.resetShows(['showCreate', 'showEdit']);
       this.get('onRemove')();
     },
 
@@ -35,11 +53,13 @@ export default Ember.Component.extend({
         width: Number(w) || Number(this.get('width')),
         height: Number(h) || Number(this.get('height'))
       };
+      this.resetShows(['showCreate', 'showEdit']);
       this.get('onSave')(saveObj);
     },
 
-    updateX (x, y) {
-      Ember.Logger.info(x);
+    deleteGraph () {
+      this.resetShows(['showCreate', 'showEdit']);
+      this.get('onDelete')(this.get('modalParams').name);
     }
   }
 });
