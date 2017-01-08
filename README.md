@@ -23,7 +23,7 @@ You will need the following things properly installed on your computer.
 ## Installation
 
 * `git clone <repository-url>` this repository
-* `cd d3-components`
+* `cd report-maker`
 * `npm install`
 * `bower install`
 
@@ -54,6 +54,9 @@ Specify what it takes to deploy your app.
 
 * [ember.js](http://emberjs.com/)
 * [ember-cli](https://ember-cli.com/)
+* [d3.js](https://d3js.org/)
+* [jquery-ui.js](https://jqueryui.com/)
+* [bootstrap](http://getbootstrap.com/)
 * Development Browser Extensions
   * [ember inspector for chrome](https://chrome.google.com/webstore/detail/ember-inspector/bmdblncegkenkacieihfhpjfppoconhi)
   * [ember inspector for firefox](https://addons.mozilla.org/en-US/firefox/addon/ember-inspector/)
