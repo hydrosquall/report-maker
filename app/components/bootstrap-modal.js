@@ -8,7 +8,10 @@ export default Ember.Component.extend({
   showEdit: false,
   px: undefined,
   py: undefined,
-  components: Ember.A([{label: 'Bar Chart', value: 'bar-chart'}]),
+  components: Ember.A([
+    {label: 'Bar Chart', value: 'bar-chart'},
+    {label: 'Line Chart', value: 'line-chart'}
+  ]),
   didRender: function () {
     if (this.get('showModal')) {
       let params = this.get('modalParams');

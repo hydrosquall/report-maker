@@ -14,7 +14,7 @@ export default Ember.Component.extend({
     let args = this.get('args');
     this.set('barChartClass', args.name);
     let margin = args.margins || this.defaultMargin;
-    let chartModel = args.model || Ember.A([]);
+    let chartModel = args.model.bar || Ember.A([]);
     this.drawChart(
       margin,
       this.factorWidth(args.width || this.defaultWidth, margin),

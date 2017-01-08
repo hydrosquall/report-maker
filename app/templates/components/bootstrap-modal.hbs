@@ -19,18 +19,31 @@
               </div>
               <div class="form-group">
                   <label for="x-pos">X:</label>
-                  <input class="form-control" id="x-pos" value={{px}}>
+                  <input class="form-control" id="x-pos" size="6" value={{px}}>
                   <label for="x-pos">Y:</label>
-                  <input class="form-control" id="y-pos" value={{py}}>
+                  <input class="form-control" id="y-pos" size="6" value={{py}}>
                   <label for="graph-width">Width:</label>
-                  <input class="form-control" id="graph-width" value={{width}}>
+                  <input class="form-control" id="graph-width" size="6" value={{width}}>
                   <label for="graph-height">Height:</label>
-                  <input class="form-control" id="graph-height" value={{height}}>
+                  <input class="form-control" id="graph-height" size="6" value={{height}}>
               </div>
           {{/if}}
           {{#if showEdit}}
-              <p>Editor</p>
+              <div class="form-group">
+                  <label for="x-pos">X:</label>
+                  <input class="form-control" id="x-pos" size="6" value={{px}}>
+                  <label for="x-pos">Y:</label>
+                  <input class="form-control" id="y-pos" size="6" value={{py}}>
+                  <label for="graph-width">Width:</label>
+                  <input class="form-control" id="graph-width" size="6" value={{width}}>
+                  <label for="graph-height">Height:</label>
+                  <input class="form-control" id="graph-height" size="6" value={{height}}>
+              </div>
           {{/if}}
+          <div class="form-group">
+              <label for="file-location">Data File:</label>
+              <input class="form-control" id="file-location" size="6" value="./data/file.json">
+          </div>
       </div>
       <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal" {{action "cancel"}}>Close</button>

@@ -9,7 +9,6 @@ export default Ember.Controller.extend({
   renderGraph (paramsObj) {
     paramsObj['model'] = this.get('model');
     this.get('components').pushObject(paramsObj);
-    Ember.Logger.info('COMPONENTS ::', this.get('components'));
   },
 
   actions: {
