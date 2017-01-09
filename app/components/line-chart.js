@@ -2,8 +2,9 @@
 /* global d3 */
 
 import Ember from 'ember';
+import D3Init from '../mixins/d3-init';
 
-export default Ember.Component.extend({
+export default Ember.Component.extend(D3Init, {
   defaultMargin: {top: 20, right: 20, bottom: 30, left: 50},
   defaultWidth: 280,
   defaultHeight: 125,
@@ -31,13 +32,7 @@ export default Ember.Component.extend({
       .x(d => { return x(this.parseTime(d.date)); })
       .y(d => { return y(d.close); });
 
-    let svg = d3.select(lineClass).append('svg')
-      .attr('id', this.get('lineChartClass'))
-      .attr('width', w + m.right + m.left)
-      .attr('height', h + m.top + m.bottom)
-      .on('contextmenu', () => { this.rightClick(d3.event); })
-      .append('g')
-      .attr('transform', 'translate(' + m.left + ',' + m.top + ')');
+    let svg = this.d3Init(lineClass, this.get('lineChartClass'), 'line-graph', w, h, m, this.get('graphRightClicked'));
 
     x.domain(d3.extent(cm, d => { return this.parseTime(d.date); }));
     y.domain([0, d3.max(cm, d => { return d.close; })]);

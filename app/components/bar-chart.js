@@ -2,8 +2,9 @@
 /* global d3 */
 
 import Ember from 'ember';
+import D3Init from '../mixins/d3-init';
 
-export default Ember.Component.extend({
+export default Ember.Component.extend(D3Init, {
   defaultMargin: {top: 20, right: 20, bottom: 30, left: 40},
   defaultHeight: 125,
   defaultWidth: 240,
@@ -42,14 +43,7 @@ export default Ember.Component.extend({
     let y = d3.scaleLinear()
       .range([height, 0]);
 
-    let svg = d3.select(chartClass).append('svg')
-      .attr('id', this.get('barChartClass'))
-      .attr('class', 'bar-graph')
-      .attr('width', width + margin.right + margin.left)
-      .attr('height', height + margin.top + margin.bottom)
-      .on('contextmenu', () => { this.rightClick(d3.event); })
-      .append('g')
-      .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+    let svg = this.d3Init(chartClass, this.get('barChartClass'), 'bar-graph', width, height, margin, this.get('graphRightClicked'));
 
     x.domain(chartModel.map(d => { return d.name; }));
     y.domain([0, d3.max(chartModel, d => { return d.sales; })]);

@@ -26,7 +26,8 @@ export default Ember.Controller.extend({
       for (let i = 0; i < c.length; i++) {
         if (c[i].name === svgId) {
           let ele = c.splice(i, 1);
-          Ember.$('#' + ele[0].name).remove();
+          let parentId = Ember.$('.' + ele[0].name).parents()[1].id;
+          Ember.$('#' + parentId).remove();
           this.set('components', c);
           break;
         }
