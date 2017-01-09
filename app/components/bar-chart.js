@@ -17,6 +17,7 @@ export default Ember.Component.extend(D3Init, {
     let margin = args.margins || this.defaultMargin;
     let chartModel = args.model.bar || Ember.A([]);
     this.drawChart(
+      this,
       margin,
       this.factorWidth(args.width || this.defaultWidth, margin),
       this.factorHeight(args.height || this.defaultHeight, margin),
@@ -25,69 +26,36 @@ export default Ember.Component.extend(D3Init, {
     );
   },
 
-  drawChart (m, w, h, cm, pos) {
-    this._super(...arguments);
-    let margin = m;
-    let width = w;
-    let height = h;
-    let chartModel = cm;
-    let xy = pos;
-    let chartClass = '.' + this.get('barChartClass');
+  drawChart (_this, m, w, h, cm, pos) {
+    let chartClass = '.' + _this.get('barChartClass');
 
-    d3.select(chartClass).innerHTML = undefined;
+    _this.removeSvg(chartClass);
 
     let x = d3.scaleBand()
-      .range([0, width])
+      .range([0, w])
       .padding(0.1);
+    x.domain(cm.map(d => { return d.name; }));
 
     let y = d3.scaleLinear()
-      .range([height, 0]);
+      .range([h, 0]);
+    y.domain([0, d3.max(cm, d => { return d.sales; })]);
 
-    let svg = this.d3Init(chartClass, this.get('barChartClass'), 'bar-graph', width, height, margin, this.get('graphRightClicked'));
-
-    x.domain(chartModel.map(d => { return d.name; }));
-    y.domain([0, d3.max(chartModel, d => { return d.sales; })]);
+    let svg = _this.svgInit(chartClass, _this.get('barChartClass'), 'bar-graph', w, h, m, _this.get('graphRightClicked'));
 
     svg.selectAll('.bar')
-      .data(chartModel)
+      .data(cm)
       .enter().append('rect')
       .attr('class', 'bar')
       .attr('x', d => { return x(d.name); })
       .attr('width', x.bandwidth())
       .attr('y', d => { return y(d.sales); })
-      .attr('height', d => { return height - y(d.sales); });
+      .attr('height', d => { return h - y(d.sales); });
 
-    svg.append('g')
-      .attr('transform', 'translate(0,' + height + ')')
-      .call(d3.axisBottom(x));
+    _this.buildAxes(svg, h, x, y);
 
-    svg.append('g')
-      .call(d3.axisLeft(y));
+    Ember.$(chartClass).css({top: pos[1], left: pos[0], position: 'absolute'});
 
-    Ember.$(chartClass).css({top: xy[1], left: xy[0], position: 'absolute'});
-
-    Ember.$(chartClass).draggable({
-      stop: function (event, ui) {
-        let os = ui.offset;
-        Ember.$(chartClass).css({top: os.top, left: os.left, position: 'absolute'});
-      },
-      snap: true,
-      grid: [5, 5]
-    });
-
-    const _this = this;
-    Ember.$(chartClass).resizable({
-      resize: function (event, ui) {
-        Ember.$('#' + _this.get('barChartClass')).remove();
-        _this.drawChart(
-          m,
-          ui.size.width - m.left - m.right,
-          ui.size.height - m.top - m.bottom,
-          chartModel,
-          Ember.A([ui.position.left, ui.position.top])
-        );
-      }
-    });
+    _this.attachListeners(_this, '#' + _this.get('barChartClass'), chartClass, m, cm, _this.drawChart);
   },
 
   factorHeight (h, m) {
@@ -96,9 +64,5 @@ export default Ember.Component.extend(D3Init, {
 
   factorWidth (w, m) {
     return w - m.left - m.right;
-  },
-
-  rightClick (evt) {
-    this.get('graphRightClicked')(evt, {type: 'edit', name: this.get('barChartClass')});
   }
 });
