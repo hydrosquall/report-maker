@@ -8,10 +8,12 @@
             onDelete=(action "deleteGraph")
         }}
     {{/if}}
-    {{#each components as |c|}}
-        {{component c.graph
-            args=c
-            graphRightClicked=(action 'menuModal')
-        }}
-    {{/each}}
+    <div class="report">
+        {{#each components as |c|}}
+            {{component c.graph
+                args=c
+                graphRightClicked=(action 'menuModal')
+            }}
+        {{/each}}
+    </div>
 </div>
