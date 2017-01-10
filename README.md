@@ -31,6 +31,7 @@ You will need the following things properly installed on your computer.
 
 * `ember build`
 * `cd server`
+* `npm install`
 * `node index.js`
 * Visit your app at [http://localhost:4200](http://localhost:4200).
 
