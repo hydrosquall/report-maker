@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const server = require('http').createServer(app);
 const winston = require('winston');
-const PORT = 3000;
+const PORT = 4200;
 
 const runServer = () => {
   app.use(bodyParser.urlencoded({ extended: true }));
@@ -41,4 +41,3 @@ if (cluster.isMaster) {
 } else {
   runServer();
 }
-

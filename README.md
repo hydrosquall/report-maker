@@ -29,7 +29,9 @@ You will need the following things properly installed on your computer.
 
 ## Running / Development
 
-* `ember serve`
+* `ember build`
+* `cd server`
+* `node index.js`
 * Visit your app at [http://localhost:4200](http://localhost:4200).
 
 ### Code Generators
@@ -45,10 +47,6 @@ Make use of the many generators for code, try `ember help generate` for more det
 
 * `ember build` (development)
 * `ember build --environment production` (production)
-
-### Deploying
-
-Specify what it takes to deploy your app.
 
 ## Further Reading / Useful Links
 

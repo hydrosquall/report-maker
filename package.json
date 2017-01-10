@@ -1,7 +1,7 @@
 {
-  "name": "d3-components",
+  "name": "report-maker",
   "version": "0.0.0",
-  "description": "Small description for d3-components goes here",
+  "description": "Build Reports",
   "license": "MIT",
   "author": "",
   "directories": {
@@ -16,7 +16,6 @@
   },
   "devDependencies": {
     "broccoli-asset-rev": "^2.4.5",
-    "d3": "4.4.0",
     "ember-ajax": "^2.4.1",
     "ember-cli": "2.10.0",
     "ember-cli-app-version": "^2.0.0",
@@ -40,7 +39,7 @@
     "loader.js": "^4.0.10"
   },
   "engines": {
-    "node": ">= 0.12.0"
+    "node": ">= 6.94.0"
   },
   "private": true,
   "dependencies": {
