@@ -1,0 +1,26 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "server for report-maker",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MorganPeterson/report-maker.git"
+  },
+  "author": "MorganPeterson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MorganPeterson/report-maker/issues"
+  },
+  "homepage": "https://github.com/MorganPeterson/report-maker#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "cluster": "^0.7.7",
+    "compression": "^1.6.2",
+    "express": "^4.14.0",
+    "winston": "^2.3.0"
+  }
+}
