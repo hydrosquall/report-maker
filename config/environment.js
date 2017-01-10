@@ -1,8 +1,8 @@
 /* jshint node: true */
 
-module.exports = function(environment) {
+module.exports = function (environment) {
   var ENV = {
-    modulePrefix: 'd3-components',
+    modulePrefix: 'report-maker',
     environment: environment,
     rootURL: '/',
     locationType: 'auto',
